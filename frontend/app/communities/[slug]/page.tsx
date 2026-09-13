@@ -29,9 +29,9 @@ export default async function CommunityDetailPage({
     return (
       <main className="space-y-6">
         <PageHeader
-          eyebrow="Community Detail"
-          title="GitHub source needs attention."
-          description="This community view could not be generated from GitHub yet. Fix the repository mapping or token flow, then refresh the sync."
+          eyebrow="Narrative Detail"
+          title="This source needs attention."
+          description="This product view could not be generated yet. Fix the source mapping or token flow, then refresh the evidence feed."
           actions={
             <div className="rounded-[26px] border border-[var(--border)] bg-[var(--surface-elevated)] p-4 text-sm leading-6 text-[var(--muted)]">
               {error ?? "No live intelligence is available for this community right now."}
@@ -55,13 +55,13 @@ export default async function CommunityDetailPage({
   return (
     <main className="space-y-6">
       <PageHeader
-        eyebrow="Community Detail"
+        eyebrow="Narrative Detail"
         title={data.community.name}
-        description={`${data.community.tagline} Review live GitHub signals, contributor momentum, and operator actions in one focused space.`}
+        description={`${data.community.tagline} Review where the positioning, onboarding path, and live developer evidence are still out of alignment.`}
         actions={
           <div className="rounded-[24px] border border-[var(--border)] bg-[var(--surface-elevated)] p-4 text-sm leading-6 text-[var(--muted)]">
-            <p className="text-xs uppercase tracking-[0.22em] text-[var(--muted)]">Sync Status</p>
-            <p className="mt-2 text-[var(--text)]">{mode === "live" ? "Live GitHub intelligence" : "Unavailable"} from {data.sync_status.repo}</p>
+            <p className="text-xs uppercase tracking-[0.22em] text-[var(--muted)]">Evidence Status</p>
+            <p className="mt-2 text-[var(--text)]">{mode === "live" ? "Live GitHub evidence" : "Unavailable"} from {data.sync_status.repo}</p>
             <p className="mt-2">Synced {data.sync_status.synced_at.replace("T", " ").replace("Z", " UTC")}</p>
           </div>
         }
@@ -74,21 +74,21 @@ export default async function CommunityDetailPage({
       <BenchmarkStrip metrics={data.benchmark_metrics} />
 
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
-        <MetricCard eyebrow="Health Score" value={`${data.health.overall_score}/100`} detail={data.health.summary} icon={<span className="text-lg">01</span>} />
-        <MetricCard eyebrow="Weekly Active" value={data.community.weekly_active_members.toLocaleString()} detail={`${data.community.growth_rate}% growth rate across the last rolling month.`} tone="teal" icon={<span className="text-lg">02</span>} />
-        <MetricCard eyebrow="Activation" value={`${data.health.activation_score}`} detail="Onboarding, docs usage, and early success signals." tone="gold" icon={<span className="text-lg">03</span>} />
-        <MetricCard eyebrow="ROI Signal" value={`${data.health.roi_score}`} detail="Evidence that community effort is turning into shipped or provable outcomes." tone="accent" icon={<span className="text-lg">04</span>} />
-        <MetricCard eyebrow="Support Time" value={`${data.health.response_time_hours}h`} detail={`Primary channel: ${data.community.primary_channel}. Risk level: ${data.health.risk_level}.`} tone="teal" icon={<span className="text-lg">05</span>} />
+        <MetricCard eyebrow="Alignment Score" value={`${data.health.overall_score}/100`} detail={data.health.summary} icon={<span className="text-lg">01</span>} />
+        <MetricCard eyebrow="Claim Exposure" value={data.community.weekly_active_members.toLocaleString()} detail={`${data.community.growth_rate}% growth rate across the last rolling month.`} tone="teal" icon={<span className="text-lg">02</span>} />
+        <MetricCard eyebrow="Onboarding Truth" value={`${data.health.activation_score}`} detail="Signals whether docs and setup claims match first-use reality." tone="gold" icon={<span className="text-lg">03</span>} />
+        <MetricCard eyebrow="Proof Clarity" value={`${data.health.roi_score}`} detail="Shows whether real wins are visible enough to support the product story." tone="accent" icon={<span className="text-lg">04</span>} />
+        <MetricCard eyebrow="Response Lag" value={`${data.health.response_time_hours}h`} detail={`Primary channel: ${data.community.primary_channel}. Risk level: ${data.health.risk_level}.`} tone="teal" icon={<span className="text-lg">05</span>} />
       </section>
 
       <WorkflowInsights items={data.workflow_insights} />
 
       <section className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
-        <SectionCard title="Momentum Arc" kicker="Performance">
+        <SectionCard title="Narrative Drift" kicker="Evidence Over Time">
           <TrendBars snapshots={data.weekly_snapshots} />
         </SectionCard>
 
-        <SectionCard title="Priority Queue" kicker="Recommended Actions">
+        <SectionCard title="Repair Queue" kicker="Recommended Fixes">
           <div className="flex flex-col gap-4">
             {data.recommendations.map((item) => (
               <article key={item.id} className="rounded-[24px] border border-[var(--border)] bg-[var(--surface-elevated)] p-4">
@@ -116,17 +116,17 @@ export default async function CommunityDetailPage({
       </section>
 
       <section className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
-        <SectionCard title="Live Signals" kicker="What Changed">
+        <SectionCard title="Gap Findings" kicker="What Does Not Match">
           <SignalFeed signals={data.live_signals} priorityClasses={priorityClasses} />
         </SectionCard>
 
-        <SectionCard title="Content Radar" kicker="Marketable Opportunities">
+        <SectionCard title="Repair Opportunities" kicker="What To Ship, Publish, Or Rewrite">
           <ContentRadar opportunities={data.content_opportunities} priorityClasses={priorityClasses} />
         </SectionCard>
       </section>
 
       <section className="grid gap-6 xl:grid-cols-[0.85fr_1.15fr]">
-        <SectionCard title="Champion Network" kicker="Advocacy Engine">
+        <SectionCard title="Signal Owners" kicker="People Closest To Product Reality">
           <div className="space-y-4">
             {data.champions.map((champion) => (
               <article key={champion.username} className="rounded-[24px] border border-[var(--border)] bg-[var(--surface-elevated)] p-4">
@@ -150,7 +150,7 @@ export default async function CommunityDetailPage({
           </div>
         </SectionCard>
 
-        <SectionCard title="Activity Feed" kicker="Raw Community Inputs">
+        <SectionCard title="Evidence Feed" kicker="Raw Product Inputs">
           <div className="overflow-hidden rounded-[26px] border border-[var(--border)]">
             {data.activity_feed.map((item, index) => (
               <article

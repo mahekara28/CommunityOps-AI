@@ -10,54 +10,54 @@ function average(values: number[]) {
 }
 
 export default async function Home() {
-  const { dashboards, errors } = await getPortfolioData();
+  const { dashboards, errors, drafts } = await getPortfolioData();
   const benchmarkMetrics = [
     {
-      label: "Portfolio health",
+      label: "Narrative alignment",
       value: `${average(dashboards.map((item) => item.health.overall_score))}/100`,
-      delta: "Live benchmark average",
+      delta: "Average story-to-reality score",
       direction: "up" as const,
-      context: "Composite view of support, activation, advocacy, and shipped proof."
+      context: "Composite view of onboarding truth, support friction, and proof clarity."
     },
     {
-      label: "Communities tracked",
+      label: "Repos tracked",
       value: `${dashboards.length}`,
-      delta: "Active GitHub repositories",
+      delta: "Connected GitHub sources",
       direction: "flat" as const,
-      context: "Compare distinct community motions without flattening the portfolio."
+      context: "Compare narrative gaps across products without flattening them into one generic report."
     },
     {
-      label: "Support risk",
+      label: "Friction pressure",
       value: `${average(dashboards.map((item) => item.health.unanswered_rate))}%`,
-      delta: "Unanswered issue pressure",
+      delta: "Unresolved developer confusion",
       direction: "down" as const,
-      context: "Highlights where response systems are struggling to keep pace with demand."
+      context: "Highlights where the user experience is harder than the current product story suggests."
     },
     {
-      label: "Activation score",
+      label: "Onboarding truth",
       value: `${average(dashboards.map((item) => item.health.activation_score))}`,
-      delta: "Onboarding and docs motion",
+      delta: "Docs and setup alignment",
       direction: "up" as const,
-      context: "Measures how well communities help new builders reach first success."
+      context: "Measures how closely onboarding claims match what developers can actually do."
     },
     {
-      label: "ROI signal",
+      label: "Proof clarity",
       value: `${average(dashboards.map((item) => item.health.roi_score))}`,
-      delta: "Contribution-to-proof conversion",
+      delta: "Evidence packaging strength",
       direction: "up" as const,
-      context: "Shows whether activity is translating into visible product and business proof."
+      context: "Shows whether real developer wins are visible enough to support launches, docs, and messaging."
     }
   ];
 
   return (
     <main className="space-y-6">
       <PageHeader
-        eyebrow="Overview"
-        title="A live GitHub command center for community teams."
-        description="Designed like a product workspace: one clean surface for signal review, operator rituals, and proof that community energy is compounding into product outcomes."
+        eyebrow="Briefing"
+        title="See where API and SDK positioning breaks in the real world."
+        description="Narrative Gap MCP gives DevRel and product marketing teams a live read on onboarding friction, message drift, proof gaps, and release credibility."
         actions={
           <div className="rounded-[26px] border border-[var(--border)] bg-[var(--surface-elevated)] p-4 text-sm leading-6 text-[var(--muted)]">
-            Live GitHub repositories feed this workspace directly. No demo mode, no placeholder dashboards.
+            Built for teams whose growth depends on developer trust: APIs, SDKs, platform tooling, and AI products.
           </div>
         }
       />
@@ -78,13 +78,24 @@ export default async function Home() {
         </section>
       ) : null}
 
+      {drafts.length > 0 ? (
+        <section className="glass rounded-[30px] p-5 md:p-6">
+          <p className="text-xs uppercase tracking-[0.24em] text-[var(--muted)]">Setup</p>
+          <h3 className="mt-2 text-2xl font-semibold tracking-tight">Connect a product source before review starts.</h3>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-[var(--muted)]">
+            Add the repository owner, repository name, positioning claim, onboarding promise, and proof goal in Sources.
+            Until then, this product will stay intentionally empty instead of pretending it already knows your product story.
+          </p>
+        </section>
+      ) : null}
+
       {dashboards.length > 0 ? <BenchmarkStrip metrics={benchmarkMetrics} /> : null}
 
       <section className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
-        <SectionCard title="Communities" kicker="Portfolio">
+        <SectionCard title="Tracked Products" kicker="Narrative Surface">
           {dashboards.length === 0 ? (
             <div className="empty-state rounded-[28px] p-6 text-sm leading-6 text-[var(--muted)]">
-              Add valid GitHub repositories in Workspace, then refresh the sync to populate the product.
+              Add a real GitHub source in Sources, then refresh evidence to generate the product review.
             </div>
           ) : (
             <div className="grid gap-4">
@@ -103,7 +114,7 @@ export default async function Home() {
                       <p className="mt-3 text-sm leading-6 text-[var(--muted)]">{item.community.tagline}</p>
                     </div>
                     <div className="text-left md:text-right">
-                      <p className="text-xs uppercase tracking-[0.22em] text-[var(--muted)]">Health</p>
+                      <p className="text-xs uppercase tracking-[0.22em] text-[var(--muted)]">Alignment</p>
                       <p className="mt-2 text-3xl font-semibold">{item.health.overall_score}</p>
                     </div>
                   </div>
@@ -123,28 +134,28 @@ export default async function Home() {
           )}
         </SectionCard>
 
-        <SectionCard title="Operator Workflows" kicker="Shared Patterns">
+        <SectionCard title="MCP Workflows" kicker="Repair System">
           <WorkflowInsights
             items={[
               {
-                id: "portfolio-proof",
-                title: "Proof reviews",
-                summary: "Turn community work into a weekly business-ready narrative the team can actually use.",
-                owner: "Leadership",
+                id: "portfolio-gap-review",
+                title: "Narrative review",
+                summary: "Compare launch claims and docs positioning against the questions developers ask after first contact.",
+                owner: "Product marketing",
                 status: "scale"
               },
               {
-                id: "portfolio-routing",
-                title: "Support routing",
-                summary: "Route repeated questions into reusable answers before maintainers absorb the drag.",
-                owner: "Community ops",
+                id: "portfolio-friction-repair",
+                title: "Friction repair",
+                summary: "Turn setup confusion and repeat support loops into better onboarding, docs, and message clarity.",
+                owner: "DevRel",
                 status: "act"
               },
               {
-                id: "portfolio-content",
-                title: "Content conversion",
-                summary: "Turn recurring friction into documentation, launch assets, and proof stories.",
-                owner: "Developer marketing",
+                id: "portfolio-proof-loop",
+                title: "Proof packaging",
+                summary: "Convert merged fixes and user wins into proof that sales, launches, and DevRel can all reuse.",
+                owner: "Growth",
                 status: "scale"
               }
             ]}

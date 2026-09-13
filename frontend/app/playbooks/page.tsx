@@ -4,37 +4,37 @@ import { WorkflowInsights } from "@/components/workflow-insights";
 import { getPortfolioData } from "@/lib/server-data";
 
 export default async function PlaybooksPage() {
-  const { dashboards, errors } = await getPortfolioData();
+  const { dashboards, errors, drafts } = await getPortfolioData();
 
   return (
     <main className="space-y-6">
       <PageHeader
-        eyebrow="Playbooks"
-        title="Recommended actions that feel execution-ready."
-        description="Focus this page on what the team should do next, who owns it, and which signal or metric will prove the action worked."
+        eyebrow="Repair Plans"
+        title="Turn product drift into a repair plan."
+        description="Focus this page on what to fix next, who should own it, and which evidence should improve once the message and experience are aligned again."
       />
 
       <WorkflowInsights
         items={[
           {
-            id: "playbook-activation",
-            title: "Activation playbook",
-            summary: "Turn repeated onboarding friction into guided assets and opinionated starter paths.",
+            id: "playbook-claim-repair",
+            title: "Claim repair",
+            summary: "Tighten positioning so the product promise matches what a new developer can actually achieve today.",
             owner: "DevRel",
             status: "act"
           },
           {
-            id: "playbook-support",
-            title: "Support deflection playbook",
-            summary: "Reduce maintainer drag by separating reusable questions from real blockers.",
-            owner: "Community ops",
+            id: "playbook-doc-repair",
+            title: "Docs repair",
+            summary: "Use repeated support friction to rewrite setup, onboarding, and troubleshooting guidance.",
+            owner: "Docs",
             status: "scale"
           },
           {
-            id: "playbook-roi",
-            title: "Proof loop playbook",
-            summary: "Translate community activity into reporting that leadership and marketing can actually use.",
-            owner: "Developer marketing",
+            id: "playbook-proof-repair",
+            title: "Proof repair",
+            summary: "Package real user wins and shipped improvements into proof that buyers and builders can both trust.",
+            owner: "Product marketing",
             status: "scale"
           }
         ]}
@@ -50,12 +50,22 @@ export default async function PlaybooksPage() {
         </section>
       ) : null}
 
+      {drafts.length > 0 && dashboards.length === 0 ? (
+        <section className="glass rounded-[30px] p-5 md:p-6">
+          <p className="text-xs uppercase tracking-[0.24em] text-[var(--muted)]">Before planning</p>
+          <h2 className="mt-2 text-2xl font-semibold tracking-tight">Repair plans appear after live evidence is connected.</h2>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-[var(--muted)]">
+            Add a real GitHub repository in Sources and refresh the feed. This page stays empty until it has real product evidence to work from.
+          </p>
+        </section>
+      ) : null}
+
       <div className="grid gap-6 xl:grid-cols-2">
         {dashboards.map((dashboard) => (
           <SectionCard
             key={dashboard.community.slug}
             title={dashboard.community.name}
-            kicker="Recommended Actions"
+            kicker="Narrative Repairs"
           >
             <div className="grid gap-4">
               {dashboard.recommendations.map((item) => (

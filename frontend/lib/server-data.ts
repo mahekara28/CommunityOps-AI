@@ -9,12 +9,15 @@ export interface PortfolioDataResult {
   communities: Awaited<ReturnType<typeof getCommunities>>;
   dashboards: DashboardData[];
   errors: Array<{ slug: string; name: string; message: string }>;
+  drafts: Awaited<ReturnType<typeof getCommunities>>;
 }
 
 export async function getPortfolioData(): Promise<PortfolioDataResult> {
   const communities = await getCommunities();
+  const configured = communities.filter((community) => community.repo_owner && community.repo_name);
+  const drafts = communities.filter((community) => !community.repo_owner || !community.repo_name);
   const results = await Promise.allSettled(
-    communities.map(async (community) => {
+    configured.map(async (community) => {
       const { data } = await getDashboardData(community.slug);
       return data;
     }),
@@ -24,7 +27,7 @@ export async function getPortfolioData(): Promise<PortfolioDataResult> {
   const errors: PortfolioDataResult["errors"] = [];
 
   results.forEach((result, index) => {
-    const community = communities[index];
+    const community = configured[index];
     if (result.status === "fulfilled") {
       dashboards.push(result.value);
       return;
@@ -36,12 +39,22 @@ export async function getPortfolioData(): Promise<PortfolioDataResult> {
     });
   });
 
-  return { communities, dashboards, errors };
+  return { communities, dashboards, errors, drafts };
 }
 
 export async function getCommunityPageData(slug: string) {
   const communities = await getCommunities();
   const community = communities.find((item) => item.slug === slug) ?? null;
+
+  if (community && (!community.repo_owner || !community.repo_name)) {
+    return {
+      communities,
+      community,
+      dashboard: null,
+      mode: null,
+      error: "Source is not configured yet. Add the repository owner and repository name, then refresh evidence.",
+    };
+  }
 
   try {
     const dashboardResponse = await getDashboardData(slug);

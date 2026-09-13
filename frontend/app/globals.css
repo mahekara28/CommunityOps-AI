@@ -121,6 +121,8 @@ main {
 
 .glass:hover {
   box-shadow: var(--shadow-soft);
+  border-color: var(--border-strong);
+  transform: translateY(-1px);
 }
 
 .page-fade {
@@ -168,6 +170,7 @@ main {
   border-radius: 999px;
   background: radial-gradient(circle, var(--accent-soft), transparent 68%);
   content: "";
+  pointer-events: none;
 }
 
 .hero-orb {
@@ -202,20 +205,37 @@ h3 {
 
 input,
 select,
+textarea,
 button {
   font: inherit;
 }
 
 input,
-select {
+select,
+textarea {
   color: var(--text);
+  transition:
+    border-color 180ms ease,
+    background 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--muted);
 }
 
 input:focus,
 select:focus,
+textarea:focus,
 button:focus {
   outline: none;
   box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+textarea {
+  resize: vertical;
 }
 
 .button-primary,

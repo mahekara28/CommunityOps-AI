@@ -52,7 +52,7 @@ class GitHubIngestionService:
         headers = {
             "Accept": "application/vnd.github+json",
             "X-GitHub-Api-Version": "2022-11-28",
-            "User-Agent": "communityops-ai",
+            "User-Agent": "narrative-gap-mcp",
         }
         if token:
             headers["Authorization"] = f"Bearer {token}"
@@ -210,39 +210,39 @@ class GitHubIngestionService:
         merged_pulls = sum(1 for pull in pulls if pull.get("merged_at"))
         return [
             BenchmarkMetric(
-                label="Repo reach",
+                label="Claim exposure",
                 value=f"{int(repo.get('stargazers_count', 0)):,} stars",
-                delta=f"+{max(int(repo.get('forks_count', 0)) // 20, 1)} attention points",
+                delta=f"+{max(int(repo.get('forks_count', 0)) // 20, 1)} visibility points",
                 direction="up",
-                context="Proxy for top-of-funnel developer awareness.",
+                context="Proxy for how many developers may encounter the product story.",
             ),
             BenchmarkMetric(
-                label="Contributor pulse",
+                label="Reality checks",
                 value=str(latest.active_contributors),
                 delta=f"{latest.active_contributors - previous.active_contributors:+d} vs last week",
                 direction="up" if latest.active_contributors >= previous.active_contributors else "down",
-                context="Active builders touching issues, pull requests, or maintenance work.",
+                context="Active builders creating the clearest signals about real user experience.",
             ),
             BenchmarkMetric(
-                label="PR velocity",
+                label="Proof supply",
                 value=str(merged_pulls),
                 delta=f"{latest.pull_requests_merged} merged in latest window",
                 direction="up" if merged_pulls else "flat",
-                context="Community energy translating into shipped product progress.",
+                context="Shipped changes that can be translated into narrative proof.",
             ),
             BenchmarkMetric(
-                label="Support load",
+                label="Confusion load",
                 value=str(open_support),
                 delta=f"{latest.questions_unanswered} unanswered in latest week",
                 direction="down" if open_support > 8 else "flat",
-                context="Backlog that can slow activation and trust if left unmanaged.",
+                context="Visible friction that weakens trust when the product story sounds easier than reality.",
             ),
             BenchmarkMetric(
-                label="Maintainer bench",
+                label="Signal bench",
                 value=str(len([c for c in contributors if c.get('contributions', 0) > 5])),
                 delta=f"{len(contributors)} visible contributors",
                 direction="up",
-                context="How much delivery and support weight is distributed beyond one core owner.",
+                context="How many visible operators are helping reveal, explain, or repair the gap.",
             ),
         ]
 

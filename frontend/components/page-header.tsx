@@ -9,7 +9,7 @@ interface PageHeaderProps {
 
 export function PageHeader({ eyebrow, title, description, actions }: PageHeaderProps) {
   return (
-    <section className="glass metric-grid rounded-[34px] px-6 py-7 md:px-8 md:py-8">
+    <section className="glass section-sheen metric-grid rounded-[34px] px-6 py-7 md:px-8 md:py-8">
       <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <div className="max-w-3xl">
           <p className="text-xs uppercase tracking-[0.28em] text-[var(--muted)]">{eyebrow}</p>

@@ -5,11 +5,11 @@ from app.models.community import ContentOpportunity
 
 def build_content_brief(opportunities: list[ContentOpportunity]) -> str:
     if not opportunities:
-        return "No meaningful content opportunities were detected this week."
+        return "No clear narrative repair assets were detected this week."
 
     lead = opportunities[0]
     return (
-        f"Lead with {lead.format.lower()} content around '{lead.title}'. "
-        f"This theme is timely because {lead.insight.lower()} "
-        f"The content should drive readers toward: {lead.call_to_action.lower()}"
+        f"Lead with a {lead.format.lower()} built around '{lead.title}'. "
+        f"This theme matters because {lead.insight.lower()} "
+        f"The asset should drive readers toward: {lead.call_to_action.lower()}"
     )

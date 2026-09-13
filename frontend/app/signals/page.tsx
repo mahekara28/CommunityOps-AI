@@ -3,14 +3,14 @@ import { SectionCard } from "@/components/section-card";
 import { getPortfolioData } from "@/lib/server-data";
 
 export default async function SignalsPage() {
-  const { dashboards, errors } = await getPortfolioData();
+  const { dashboards, errors, drafts } = await getPortfolioData();
 
   return (
     <main className="space-y-6">
       <PageHeader
-        eyebrow="Signals"
-        title="A signal desk built for weekly operating rhythm."
-        description="Use this view to spot support pressure, activation momentum, and product proof without getting lost in decorative dashboard noise."
+        eyebrow="Gap Map"
+        title="Read the message gaps before they hurt adoption."
+        description="This page isolates the clearest signs that the product promise, onboarding flow, docs, and live developer experience are drifting apart."
       />
 
       {errors.length > 0 ? (
@@ -20,6 +20,16 @@ export default async function SignalsPage() {
               {error.name}: {error.message}
             </p>
           ))}
+        </section>
+      ) : null}
+
+      {drafts.length > 0 && dashboards.length === 0 ? (
+        <section className="glass rounded-[30px] p-5 md:p-6">
+          <p className="text-xs uppercase tracking-[0.24em] text-[var(--muted)]">Before analysis</p>
+          <h2 className="mt-2 text-2xl font-semibold tracking-tight">Connect a real repository first.</h2>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-[var(--muted)]">
+            Use Sources to map the GitHub repository, then refresh evidence. The gap map appears only after live product data is available.
+          </p>
         </section>
       ) : null}
 
@@ -45,7 +55,7 @@ export default async function SignalsPage() {
                 </article>
               ))}
               <a href={`/communities/${dashboard.community.slug}`} className="button-primary text-center">
-                Open community detail
+                Open narrative detail
               </a>
             </div>
           </SectionCard>

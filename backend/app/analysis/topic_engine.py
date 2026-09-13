@@ -10,7 +10,7 @@ KEYWORDS = {
     "testing": ("Testing Patterns", "education"),
     "support": ("Support Operations", "retention"),
     "docs": ("Documentation Experience", "education"),
-    "example": ("Implementation Examples", "activation"),
+    "example": ("Implementation Patterns", "activation"),
     "guide": ("Guided Learning", "education"),
     "auth": ("Authentication Friction", "activation"),
     "starter": ("Starter Kits", "activation"),

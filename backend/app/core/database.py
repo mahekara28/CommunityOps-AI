@@ -6,47 +6,31 @@ from pathlib import Path
 
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
-DB_PATH = ROOT_DIR / "communityops.db"
+DB_PATH = ROOT_DIR / "narrative_gap.db"
 
 
 SEED_COMMUNITIES = [
     (
-        "nextforge",
-        "NextForge OSS",
-        "AI-native operating system for developer communities.",
-        "Open Source",
-        "GitHub Discussions",
-        "Global",
-        18420,
-        2980,
-        78,
-        7.4,
-        12.8,
-        "vercel",
-        "next.js",
-        "https://nextjs.org/docs",
+        "primary-source",
+        "Primary Product",
+        "",
+        "Developer Product",
+        "GitHub",
+        "",
+        0,
+        0,
+        0,
+        0,
+        0,
+        "",
+        "",
+        "",
         "GITHUB_TOKEN",
         "live",
-        json.dumps(["Contributor activation", "Support deflection", "AI discoverability"]),
-    ),
-    (
-        "cloudcanvas",
-        "CloudCanvas Builders",
-        "Community intelligence for infra and platform teams.",
-        "Developer Platform",
-        "Discord",
-        "North America + Europe",
-        9630,
-        1410,
-        71,
-        10.6,
-        8.5,
-        "microsoft",
-        "vscode",
-        "https://code.visualstudio.com/docs",
-        "GITHUB_TOKEN",
-        "live",
-        json.dumps(["Platform adoption", "Champion enablement", "Content ROI"]),
+        json.dumps([]),
+        "",
+        "",
+        "",
     ),
 ]
 
@@ -68,10 +52,24 @@ def _ensure_columns(connection: sqlite3.Connection) -> None:
         "github_token_env": "TEXT NOT NULL DEFAULT 'GITHUB_TOKEN'",
         "sync_mode": "TEXT NOT NULL DEFAULT 'live'",
         "strategic_focus": "TEXT NOT NULL DEFAULT '[]'",
+        "positioning_claim": "TEXT NOT NULL DEFAULT ''",
+        "onboarding_promise": "TEXT NOT NULL DEFAULT ''",
+        "proof_goal": "TEXT NOT NULL DEFAULT ''",
     }
     for name, definition in column_definitions.items():
         if name not in existing_columns:
             connection.execute(f"ALTER TABLE communities ADD COLUMN {name} {definition}")
+
+
+def _should_reset_legacy_seed(connection: sqlite3.Connection) -> bool:
+    rows = connection.execute(
+        "SELECT slug, repo_owner, repo_name FROM communities ORDER BY slug"
+    ).fetchall()
+    signatures = {(row["slug"], row["repo_owner"], row["repo_name"]) for row in rows}
+    return signatures == {
+        ("cloudcanvas", "microsoft", "vscode"),
+        ("nextforge", "vercel", "next.js"),
+    }
 
 
 def initialize_database() -> None:
@@ -96,13 +94,17 @@ def initialize_database() -> None:
                 docs_url TEXT NOT NULL DEFAULT '',
                 github_token_env TEXT NOT NULL DEFAULT 'GITHUB_TOKEN',
                 sync_mode TEXT NOT NULL DEFAULT 'live',
-                strategic_focus TEXT NOT NULL DEFAULT '[]'
+                strategic_focus TEXT NOT NULL DEFAULT '[]',
+                positioning_claim TEXT NOT NULL DEFAULT '',
+                onboarding_promise TEXT NOT NULL DEFAULT '',
+                proof_goal TEXT NOT NULL DEFAULT ''
             )
             """
         )
         _ensure_columns(connection)
         count = connection.execute("SELECT COUNT(*) FROM communities").fetchone()[0]
-        if count == 0:
+        if count == 0 or _should_reset_legacy_seed(connection):
+            connection.execute("DELETE FROM communities")
             connection.executemany(
                 """
                 INSERT INTO communities (
@@ -122,25 +124,12 @@ def initialize_database() -> None:
                     docs_url,
                     github_token_env,
                     sync_mode,
-                    strategic_focus
+                    strategic_focus,
+                    positioning_claim,
+                    onboarding_promise,
+                    proof_goal
                 )
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 SEED_COMMUNITIES,
             )
-        else:
-            for row in SEED_COMMUNITIES:
-                connection.execute(
-                    """
-                    UPDATE communities
-                    SET
-                        repo_owner = ?,
-                        repo_name = ?,
-                        docs_url = ?,
-                        github_token_env = ?,
-                        sync_mode = ?,
-                        strategic_focus = ?
-                    WHERE slug = ?
-                    """,
-                    (row[11], row[12], row[13], row[14], row[15], row[16], row[0]),
-                )

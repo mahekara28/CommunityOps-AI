@@ -1,51 +1,53 @@
-# CommunityOps AI
+# Narrative Gap MCP
 
-CommunityOps AI is a GitHub-native intelligence platform for developer relations, open-source programs, and community operations teams.
+Narrative Gap MCP is a GitHub-backed product for DevRel, developer marketing, product marketing, and platform teams that need to understand one thing clearly: where the story they tell about an API, SDK, developer tool, or AI product stops matching what developers are actually experiencing.
 
-It consolidates repository activity into a structured operating view that helps teams monitor contributor momentum, detect support pressure, identify emerging themes, prioritize action, and connect community activity to measurable product outcomes.
+Instead of treating GitHub activity as a raw analytics stream, the product turns issues, pull requests, contributor behavior, and docs-related signals into a structured review surface for mismatch detection, repair planning, onboarding improvement, and proof packaging.
 
-## Overview
+## What the product does
 
-Developer ecosystem teams rarely struggle with a lack of data. The challenge is that the data is fragmented across issues, pull requests, contributor activity, and documentation touchpoints.
+The platform helps teams answer practical questions such as:
 
-CommunityOps AI addresses that gap by transforming live GitHub activity into a product-style workspace designed for operational review. Instead of presenting raw repository noise, it organizes signals into focused views for portfolio monitoring, community health assessment, action planning, and source management.
+- Are we promising an easier setup than API or SDK users are actually experiencing?
+- Are support issues revealing gaps in the way the product is explained?
+- Are shipped fixes and improvements becoming visible proof, or staying buried in pull requests?
+- Which questions keep repeating because the message, docs, or onboarding flow is unclear?
+- What should the team fix first to reduce narrative drift?
 
-## Key Capabilities
+## Product areas
 
-- GitHub-first repository intelligence
-- Portfolio-level visibility across tracked communities
-- Community health scoring and operational signals
-- Support pressure and contributor activity tracking
-- Topic and content opportunity identification
-- Action-oriented playbooks and workflow recommendations
-- Dedicated workspace for repository mapping and sync management
-- Light and dark mode product interface
+### Briefing
 
-## Product Areas
+A high-level summary of alignment, friction, onboarding truth, and proof clarity across tracked developer products.
 
-### Overview
+### Gap Map
 
-A portfolio summary of tracked communities and repositories, designed for fast executive or operator-level review.
+A focused surface for reviewing the strongest mismatches between positioning and developer reality.
 
-### Signals
+### Repair Plans
 
-A focused operational view of the most important changes across communities, including momentum, risk, support load, and proof-oriented indicators.
+An action-oriented layer that turns live evidence into concrete repair steps for docs, messaging, onboarding, and proof assets.
 
-### Playbooks
+### Sources
 
-A structured action layer that converts current signals into recommended next steps for DevRel, community operations, and developer marketing teams.
+A source-management page for repository mapping, token setup, positioning inputs, and evidence refresh controls.
 
-### Workspace
+### Narrative Detail
 
-A dedicated configuration surface for repository source mapping, token expectations, and live sync control.
+A deeper product view for reviewing findings, repair opportunities, signal owners, raw evidence, and change over time.
 
-### Community Detail
+## How it works
 
-A deeper operational view for a single tracked community, including recent activity, benchmark metrics, recommendations, topic patterns, and contributor-related insights.
+1. A repository is connected through the Sources page.
+2. The backend pulls live GitHub data.
+3. Repository activity is transformed into narrative-gap findings, repair recommendations, and proof opportunities.
+4. The frontend presents the results through dedicated review pages designed for DevRel and product go-to-market workflows.
+
+The current implementation uses repository metadata, issues, pull requests, contributor activity, and docs-adjacent proxy signals to generate the analysis.
 
 ## Architecture
 
-CommunityOps AI is built as a full-stack application with a clear separation between ingestion, analysis, and presentation layers.
+Narrative Gap MCP is built as a full-stack application with a clear split between ingestion, analysis, and presentation.
 
 ### Frontend
 
@@ -61,13 +63,13 @@ CommunityOps AI is built as a full-stack application with a clear separation bet
 - SQLite
 - HTTPX
 
-## Repository Structure
+## Repository structure
 
 ```text
 backend/
   app/
-    agents/         # summary and content helper logic
-    analysis/       # health scoring, signals, recommendations, clustering
+    agents/         # summary and narrative brief generation
+    analysis/       # signal building, repair planning, topic clustering
     api/            # FastAPI route layer
     core/           # database and shared backend setup
     ingestion/      # GitHub ingestion services
@@ -82,16 +84,7 @@ frontend/
   lib/              # frontend data and API helpers
 ```
 
-## How It Works
-
-1. A repository is connected through the Workspace page.
-2. The backend retrieves live data from GitHub.
-3. Repository activity is processed into structured operational signals.
-4. The frontend presents those signals through dedicated product views for monitoring and decision-making.
-
-The current implementation primarily uses repository metadata, issues, pull requests, and contributor activity to generate platform insights.
-
-## Local Development
+## Local development
 
 ### Prerequisites
 
@@ -100,7 +93,7 @@ The current implementation primarily uses repository metadata, issues, pull requ
 - npm
 - GitHub Personal Access Token for live API access
 
-### Environment Variable
+### Environment variable
 
 Set a GitHub token before starting the backend:
 
@@ -108,9 +101,9 @@ Set a GitHub token before starting the backend:
 $env:GITHUB_TOKEN="your_github_token"
 ```
 
-Providing a token is strongly recommended to improve API reliability and avoid restrictive rate limits during local development.
+Using a token is recommended so GitHub requests remain reliable and less likely to hit rate limits.
 
-## Running the Backend
+## Running the backend
 
 ```powershell
 cd backend
@@ -132,7 +125,7 @@ Health check:
 http://127.0.0.1:8010/api/health
 ```
 
-## Running the Frontend
+## Running the frontend
 
 Open a second terminal:
 
@@ -149,18 +142,18 @@ Frontend endpoint:
 http://127.0.0.1:3001
 ```
 
-## Initial Setup Flow
+## Setup flow
 
 1. Start the backend service.
 2. Start the frontend application.
 3. Open the application in the browser.
-4. Navigate to **Workspace**.
+4. Navigate to **Sources**.
 5. Enter the GitHub repository owner and repository name.
-6. Save the repository source.
-7. Run a sync.
-8. Review the resulting signals and operational views across the platform.
+6. Save the repository mapping.
+7. Refresh evidence.
+8. Review the results across Briefing, Gap Map, Repair Plans, and Narrative Detail.
 
-## API Surface
+## API surface
 
 Primary backend routes:
 
@@ -172,26 +165,11 @@ Primary backend routes:
 - `GET /api/dashboard/{slug}`
 - `POST /api/sync/{slug}`
 
-## Product Intent
+## Product direction
 
-CommunityOps AI is designed to support teams that need more than vanity metrics. Its purpose is to create a clearer operational layer for community-led product growth by answering questions such as:
+This project is designed to move beyond basic repository analytics. Its purpose is to help teams detect narrative drift early and repair it before it turns into support load, onboarding confusion, weak launches, lost developer trust, or slower adoption.
 
-- Where is contributor momentum increasing or slowing?
-- Which support patterns are creating friction?
-- What themes are surfacing repeatedly?
-- Which actions should the team prioritize next?
-- How can community activity be translated into visible product and business proof?
-
-## Roadmap Opportunities
-
-Potential next-stage enhancements include:
-
-- authentication and multi-user workspaces
-- scheduled or background sync workflows
-- GitHub Discussions support
-- richer historical analysis and charting
-- exportable reporting for stakeholder reviews
-- additional community source integrations beyond GitHub
+In a fuller MCP implementation, the GitHub source layer can expand to include documentation systems, changelogs, support tools, and richer multi-source review workflows.
 
 ## License
 

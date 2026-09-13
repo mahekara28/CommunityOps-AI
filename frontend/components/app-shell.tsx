@@ -5,10 +5,10 @@ import { ReactNode } from "react";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 const navigation = [
-  { href: "/", label: "Overview" },
-  { href: "/signals", label: "Signals" },
-  { href: "/playbooks", label: "Playbooks" },
-  { href: "/workspace", label: "Workspace" },
+  { href: "/", label: "Briefing" },
+  { href: "/signals", label: "Gap Map" },
+  { href: "/playbooks", label: "Repair Plans" },
+  { href: "/workspace", label: "Sources" },
 ] as const;
 
 function isActive(pathname: string, href: string) {
@@ -30,19 +30,19 @@ export function AppShell({ children }: { children: ReactNode }) {
               <div className="flex items-start justify-between gap-3">
                 <div className="flex items-center gap-3">
                   <span className="h-2.5 w-2.5 rounded-full bg-[var(--accent-strong)] shadow-[0_0_18px_var(--accent-glow)]" />
-                  <p className="text-xs uppercase tracking-[0.32em] text-[var(--muted)]">CommunityOps AI</p>
+                  <p className="text-xs uppercase tracking-[0.32em] text-[var(--muted)]">Narrative Gap MCP</p>
                 </div>
                 <ThemeToggle />
               </div>
               <h1 className="mt-6 text-[2.45rem] leading-[0.98] tracking-[-0.04em]">
-                GitHub-native
+                Go-to-market
                 <br />
-                community
+                versus
                 <br />
-                intelligence.
+                developer reality.
               </h1>
               <p className="mt-4 max-w-[15rem] text-sm leading-6 text-[var(--muted)]">
-                A calmer operating surface for signals, proof, activation, and support pressure.
+                Built for DevRel, product marketing, and platform teams shipping APIs, SDKs, and AI developer products.
               </p>
             </div>
 
@@ -75,23 +75,23 @@ export function AppShell({ children }: { children: ReactNode }) {
             <div className="mt-8 rounded-[28px] border border-[var(--border)] bg-[var(--surface-elevated)] p-4 shadow-[var(--shadow-soft)]">
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <p className="text-xs uppercase tracking-[0.24em] text-[var(--muted)]">Workspace</p>
-                  <p className="mt-3 text-3xl font-semibold tracking-tight">2</p>
-                  <p className="text-sm text-[var(--muted)]">Live GitHub sources</p>
+                  <p className="text-xs uppercase tracking-[0.24em] text-[var(--muted)]">Evidence Workspace</p>
+                  <p className="mt-3 text-2xl font-semibold tracking-tight">API and SDK teams</p>
+                  <p className="text-sm text-[var(--muted)]">Launch, docs, and onboarding review</p>
                 </div>
                 <div className="rounded-full border border-[var(--border-strong)] bg-[var(--surface-subtle)] px-3 py-1 text-xs uppercase tracking-[0.22em] text-[var(--accent-strong)]">
-                  Always live
+                  Live source
                 </div>
               </div>
               <p className="mt-4 text-sm leading-6 text-[var(--muted)]">
-                Review the connected repositories, refresh syncs, and keep the token flow healthy from one place.
+                Connect the product repo, refresh live evidence, and inspect where the message breaks for real builders.
               </p>
             </div>
 
             <div className="mt-auto rounded-[28px] border border-[var(--border)] bg-[linear-gradient(160deg,var(--surface-contrast),var(--surface-contrast-2))] p-4 text-[var(--contrast-text)] shadow-[var(--shadow-soft)]">
               <p className="text-xs uppercase tracking-[0.24em] text-[var(--contrast-muted)]">Focus</p>
               <p className="mt-3 text-sm leading-6 text-[var(--contrast-text)]">
-                Surface what changed, what is blocked, and what is compounding into product proof.
+                Catch onboarding friction, weak proof, and message drift before they slow adoption or damage trust.
               </p>
             </div>
           </div>

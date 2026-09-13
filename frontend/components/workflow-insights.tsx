@@ -10,15 +10,21 @@ function statusTone(status: WorkflowInsight["status"]) {
   return "border border-[var(--border)] bg-[rgba(183,121,31,0.12)] text-[var(--gold)]";
 }
 
+function statusLabel(status: WorkflowInsight["status"]) {
+  if (status === "act") return "Now";
+  if (status === "scale") return "Scale";
+  return "Watch";
+}
+
 export function WorkflowInsights({ items }: WorkflowInsightsProps) {
   return (
     <div className="grid gap-4 md:grid-cols-3">
       {items.map((item) => (
-        <article key={item.id} className="glass rounded-[26px] p-5">
+        <article key={item.id} className="glass section-sheen rounded-[26px] p-5">
           <div className="flex items-center justify-between gap-3">
             <h3 className="text-xl font-semibold tracking-tight">{item.title}</h3>
             <span className={`rounded-full px-3 py-1 text-xs uppercase tracking-[0.22em] ${statusTone(item.status)}`}>
-              {item.status}
+              {statusLabel(item.status)}
             </span>
           </div>
           <p className="mt-3 text-sm leading-6 text-[var(--muted)]">{item.summary}</p>

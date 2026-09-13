@@ -9,7 +9,7 @@ interface SectionCardProps {
 
 export function SectionCard({ title, kicker, children, className = "" }: SectionCardProps) {
   return (
-    <section className={`glass rounded-[32px] p-6 md:p-7 ${className}`}>
+    <section className={`glass section-sheen rounded-[32px] p-6 md:p-7 ${className}`}>
       <div className="mb-5 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
         <div>
           {kicker ? (

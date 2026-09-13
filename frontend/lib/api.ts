@@ -12,7 +12,7 @@ async function parseError(response: Response) {
 }
 
 export async function getDashboardData(
-  slug = "nextforge",
+  slug: string,
 ): Promise<{ data: DashboardData; mode: "live" }> {
   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL ?? DEFAULT_BASE_URL;
 
@@ -40,6 +40,20 @@ export async function getCommunities(): Promise<CommunityProfile[]> {
   }
 
   return (await response.json()) as CommunityProfile[];
+}
+
+export async function createCommunity(): Promise<CommunityProfile> {
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL ?? DEFAULT_BASE_URL;
+
+  const response = await fetch(`${baseUrl}/api/communities`, {
+    method: "POST"
+  });
+
+  if (!response.ok) {
+    throw new Error(await parseError(response));
+  }
+
+  return (await response.json()) as CommunityProfile;
 }
 
 export async function updateCommunityConfig(

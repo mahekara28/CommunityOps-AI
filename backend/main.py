@@ -16,8 +16,8 @@ async def lifespan(_: FastAPI):
 
 
 app = FastAPI(
-    title="CommunityOps AI",
-    description="AI-native command center for DevRel and community operations teams.",
+    title="Narrative Gap MCP",
+    description="A GitHub-backed workspace for DevRel and product marketing teams to identify gaps between developer-product positioning and real user experience.",
     version="0.1.0",
     lifespan=lifespan,
 )
@@ -34,4 +34,4 @@ app.include_router(router)
 
 @app.get("/")
 def root() -> dict[str, str]:
-    return {"message": "CommunityOps AI backend is running."}
+    return {"message": "Narrative Gap MCP backend is running."}

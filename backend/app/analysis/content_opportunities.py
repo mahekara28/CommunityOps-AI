@@ -10,30 +10,30 @@ def suggest_content_opportunities(
     opportunities: list[ContentOpportunity] = []
     for index, topic in enumerate(topics[:3], start=1):
         format_name = (
-            "Interactive guide"
+            "Interactive repair guide"
             if topic.intent == "activation"
-            else "Benchmark teardown"
+            else "Narrative proof memo"
             if topic.intent == "retention"
-            else "Office hours recap"
+            else "Operator recap"
         )
         opportunities.append(
             ContentOpportunity(
                 id=f"content-{index}",
-                title=f"{topic.topic}: from recurring questions to reusable proof",
+                title=f"{topic.topic}: repair the story before the question repeats",
                 format=format_name,
                 audience=(
-                    "New builders"
+                    "New evaluators"
                     if topic.intent == "activation"
-                    else "Existing adopters"
+                    else "Active adopters"
                     if topic.intent == "retention"
-                    else "Community educators"
+                    else "Internal operators"
                 ),
                 priority="high" if topic.trend == "surging" else "medium",
-                insight=f"{topic.volume} recent high-signal threads point to sustained demand.",
+                insight=f"{topic.volume} recent high-signal threads point to a persistent gap between the official story and user reality.",
                 call_to_action=(
-                    "Publish a canonical resource and route future discussions back to it."
+                    "Publish a canonical repair asset and route future discussions back to it."
                     if topic.intent != "advocacy"
-                    else "Package the best practitioner stories into repeatable advocacy assets."
+                    else "Package practitioner language into repeatable proof and trust assets."
                 ),
             )
         )
@@ -42,12 +42,12 @@ def suggest_content_opportunities(
         opportunities.append(
             ContentOpportunity(
                 id="content-advocacy",
-                title="Turn champion stories into a social proof campaign",
+                title="Turn practitioner explanations into trust-building narrative proof",
                 format="Video + quote cards",
-                audience="Warm prospects and existing members",
+                audience="Prospects, adopters, and internal stakeholders",
                 priority="medium",
-                insight="Member-led trade-off discussions are strong raw material for credible content.",
-                call_to_action="Package authentic build stories into short-form assets for launch channels.",
+                insight="Member-led trade-off discussions are stronger and more believable than polished top-down messaging.",
+                call_to_action="Package authentic build stories into short-form assets for docs, launches, and proof channels.",
             )
         )
 

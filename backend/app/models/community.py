@@ -7,7 +7,7 @@ from pydantic import BaseModel, Field
 
 Priority = Literal["critical", "high", "medium", "low"]
 SignalType = Literal["momentum", "risk", "support", "content", "advocacy", "roi"]
-SyncMode = Literal["live", "demo"]
+SyncMode = Literal["live"]
 
 
 class CommunitySnapshot(BaseModel):
@@ -53,15 +53,23 @@ class CommunityProfile(BaseModel):
     github_token_env: str
     sync_mode: SyncMode
     strategic_focus: list[str]
+    positioning_claim: str = ""
+    onboarding_promise: str = ""
+    proof_goal: str = ""
 
 
 class CommunityUpdateRequest(BaseModel):
+    name: str
+    tagline: str
     repo_owner: str
     repo_name: str
     docs_url: str
     github_token_env: str
     sync_mode: SyncMode
     strategic_focus: list[str]
+    positioning_claim: str = ""
+    onboarding_promise: str = ""
+    proof_goal: str = ""
 
 
 class CommunityHealth(BaseModel):

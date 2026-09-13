@@ -9,52 +9,52 @@ def build_recommendations(
 ) -> list[Recommendation]:
     recommendations = [
         Recommendation(
-            id="rec-support-sprint",
-            title="Launch a 5-day support backlog sprint",
-            owner="Community Ops",
+            id="rec-claim-repair",
+            title="Rewrite the top-level setup promise around the actual first-run path",
+            owner="Product Marketing",
             priority="critical",
-            impact="Reduce unanswered questions and improve perceived responsiveness.",
+            impact="Reduce trust erosion caused by a claim that feels easier than the real onboarding experience.",
             due_window="This week",
-            rationale="Backlog growth is the sharpest near-term risk in the current signal set.",
-            metric_target="Bring unanswered rate below 12%.",
+            rationale="The fastest way to reduce narrative damage is to close the promise gap at the top of the funnel.",
+            metric_target="Lower unanswered rate and reduce repeat setup questions.",
         ),
         Recommendation(
-            id="rec-champion-program",
-            title="Formalize a rotating champion amplification loop",
+            id="rec-objection-log",
+            title="Build a reusable objection and confusion log from current GitHub issues",
             owner="DevRel",
             priority="high",
-            impact="Convert existing power users into repeat advocacy and peer support.",
+            impact="Turn repeated user friction into a structured repair list for docs, messaging, and onboarding.",
             due_window="Next 10 days",
-            rationale="The community already has visible champions; the system around them is still informal.",
-            metric_target="Increase champion-led responses by 25%.",
+            rationale="The open issue stream already contains the language of the gap. It just needs to be organized.",
+            metric_target="Convert the top recurring confusion themes into tracked repair items.",
         ),
     ]
 
     if health.momentum_score >= 75:
         recommendations.append(
             Recommendation(
-                id="rec-launch-series",
-                title="Ship a three-part launch education series",
-                owner="Content",
+                id="rec-onboarding-proof",
+                title="Publish an honest onboarding guide with exact steps, edge cases, and expected failure points",
+                owner="Docs",
                 priority="high",
-                impact="Capture current discovery demand while momentum is above baseline.",
+                impact="Reduce the mismatch between launch language and the lived experience of a new developer.",
                 due_window="Next 2 weeks",
-                rationale="Growth and docs demand are rising together, which is a strong content timing signal.",
-                metric_target="Ship 3 proof-oriented assets tied to top recurring topics.",
+                rationale="Interest is present, but the current path still creates enough confusion to distort the product story.",
+                metric_target="Reduce first-use support questions and increase docs completion confidence.",
             )
         )
 
     if any(signal.type == "support" and signal.priority == "critical" for signal in signals):
         recommendations.append(
             Recommendation(
-                id="rec-routing",
-                title="Create a response routing matrix for maintainers vs champions",
-                owner="Operations",
+                id="rec-troubleshooting-layer",
+                title="Create a troubleshooting layer that answers the questions users are already asking",
+                owner="Support",
                 priority="medium",
-                impact="Protect maintainer focus while keeping first-response time fast.",
+                impact="Protect trust by closing the gap between official docs and real-world debugging needs.",
                 due_window="This sprint",
-                rationale="Support quality improves fastest when triage ownership is explicit.",
-                metric_target="Cut first-response time by 30%.",
+                rationale="Support friction is now visible enough that silence becomes part of the product narrative.",
+                metric_target="Cut repeated debugging questions and improve first-response resolution quality.",
             )
         )
 
@@ -62,13 +62,13 @@ def build_recommendations(
         recommendations.append(
             Recommendation(
                 id="rec-proof-loop",
-                title="Create a monthly community-to-pipeline proof loop",
-                owner="Developer Marketing",
+                title="Turn shipped fixes and user wins into a weekly proof memo",
+                owner="Growth",
                 priority="high",
-                impact="Translate community momentum into executive-visible ROI.",
+                impact="Make real adoption evidence visible enough to support launches, sales, and internal alignment.",
                 due_window="This month",
-                rationale="Leadership pressure is usually highest when teams cannot connect engagement to outcomes.",
-                metric_target="Publish one monthly ROI readout with launch, support, and content outcomes.",
+                rationale="If proof stays buried in issues and pull requests, the external story will keep lagging behind the product.",
+                metric_target="Publish one repeatable proof memo built directly from repo evidence.",
             )
         )
 

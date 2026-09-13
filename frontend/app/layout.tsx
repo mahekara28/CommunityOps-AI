@@ -5,14 +5,14 @@ import { AppShell } from "@/components/app-shell";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "CommunityOps AI",
-  description: "GitHub-native operating system for DevRel, developer marketing, and community teams."
+  title: "Narrative Gap MCP",
+  description: "An MCP-style workspace for finding the gap between product story and developer reality."
 };
 
 const themeScript = `
   (() => {
     try {
-      const saved = window.localStorage.getItem("communityops-theme");
+      const saved = window.localStorage.getItem("narrative-gap-theme");
       const system = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
       document.documentElement.dataset.theme = saved || system;
     } catch (error) {

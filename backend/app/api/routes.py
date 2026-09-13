@@ -22,6 +22,11 @@ def list_communities():
     return repository.list_communities()
 
 
+@router.post("/communities")
+def create_community():
+    return repository.create_community()
+
+
 @router.get("/communities/{slug}")
 def get_community(slug: str):
     return repository.get_community(slug)

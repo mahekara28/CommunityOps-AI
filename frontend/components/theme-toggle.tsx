@@ -16,7 +16,7 @@ export function ThemeToggle() {
 
   function applyTheme(nextTheme: Theme) {
     document.documentElement.dataset.theme = nextTheme;
-    window.localStorage.setItem("communityops-theme", nextTheme);
+    window.localStorage.setItem("narrative-gap-theme", nextTheme);
     setTheme(nextTheme);
   }
 

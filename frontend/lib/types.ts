@@ -1,5 +1,5 @@
 export type Priority = "critical" | "high" | "medium" | "low";
-export type SyncMode = "live" | "demo";
+export type SyncMode = "live";
 
 export interface CommunityProfile {
   slug: string;
@@ -19,6 +19,9 @@ export interface CommunityProfile {
   github_token_env: string;
   sync_mode: SyncMode;
   strategic_focus: string[];
+  positioning_claim: string;
+  onboarding_promise: string;
+  proof_goal: string;
 }
 
 export interface CommunityHealth {
@@ -131,12 +134,17 @@ export interface SyncStatus {
 }
 
 export interface CommunityUpdateRequest {
+  name: string;
+  tagline: string;
   repo_owner: string;
   repo_name: string;
   docs_url: string;
   github_token_env: string;
   sync_mode: SyncMode;
   strategic_focus: string[];
+  positioning_claim: string;
+  onboarding_promise: string;
+  proof_goal: string;
 }
 
 export interface DashboardData {

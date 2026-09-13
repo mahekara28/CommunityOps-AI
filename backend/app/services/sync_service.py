@@ -33,7 +33,7 @@ class SyncService:
             raise HTTPException(status_code=502, detail=str(exc)) from exc
         health = assess_health(weekly_snapshots)
         signals = build_signals(weekly_snapshots, activity_feed)
-        champions = identify_champions(slug)
+        champions = identify_champions(activity_feed)
         topic_clusters = cluster_topics(activity_feed)
         content_opportunities = suggest_content_opportunities(signals, topic_clusters)
         recommendations = build_recommendations(health, signals)
@@ -67,23 +67,23 @@ class SyncService:
         return [
             WorkflowInsight(
                 id="wf-priorities",
-                title="Executive proof loop",
-                summary="Turn activity, activation, and support signals into one operator-readable weekly brief.",
-                owner="DevRel lead",
+                title="Narrative review loop",
+                summary="Turn GitHub evidence into a weekly readout of where the product story matches reality and where it does not.",
+                owner="Product marketing",
                 status="scale" if primary_signal.type in {"roi", "momentum"} else "watch",
             ),
             WorkflowInsight(
                 id="wf-routing",
-                title="Support routing lane",
-                summary="Separate maintainer-grade product blockers from repeat onboarding asks and docs gaps.",
-                owner="Community ops",
+                title="Friction repair lane",
+                summary="Separate true product blockers from wording, onboarding, and documentation failures.",
+                owner="DevRel",
                 status="act" if any(signal.type == "support" for signal in signals) else "watch",
             ),
             WorkflowInsight(
                 id="wf-focus",
-                title="Strategic focus stack",
-                summary=", ".join(strategic_focus[:3]) or "No strategic focus configured yet.",
-                owner="Program manager",
+                title="Story repair stack",
+                summary=", ".join(strategic_focus[:3]) or "No narrative repair focus configured yet.",
+                owner="Product ops",
                 status="scale",
             ),
         ]

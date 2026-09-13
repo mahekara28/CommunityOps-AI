@@ -30,9 +30,9 @@ def assess_health(snapshots: list[CommunitySnapshot]) -> CommunityHealth:
         risk_level = "low"
 
     summary = (
-        "Growth signals are healthy, but support pressure is rising faster than the current response system."
+        "The product story is being stressed by live support friction, so messaging and onboarding probably need repair."
         if risk_level in {"critical", "high"}
-        else "Community health is stable with room to convert recurring questions into scalable content."
+        else "The repo story is mostly aligned, with clear room to turn repeated questions into sharper docs and stronger narrative proof."
     )
 
     return CommunityHealth(
